@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Birthday Party 🎉</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Anton&family=Archivo+Black&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: #f5f5dc;
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Sunburst background */
+        .sunburst {
+            position: fixed;
+            top: -50%;
+            right: -20%;
+            width: 150%;
+            height: 150%;
+            background: repeating-conic-gradient(
+                from 0deg,
+                #9b59b6 0deg 10deg,
+                #f5f5dc 10deg 20deg
+            );
+            z-index: 0;
+            opacity: 0.3;
+        }
+
+        /* Checkered pattern */
+        .checkered {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 300px;
+            height: 300px;
+            background:
+                linear-gradient(45deg, #000 25%, transparent 25%),
+                linear-gradient(-45deg, #000 25%, transparent 25%),
+                linear-gradient(45deg, transparent 75%, #000 75%),
+                linear-gradient(-45deg, transparent 75%, #000 75%);
+            background-size: 40px 40px;
+            background-position: 0 0, 0 20px, 20px -20px, -20px 0px;
+            opacity: 0.4;
+            z-index: 1;
+            transform: rotate(-10deg);
+        }
+
+        .container {
+            position: relative;
+            z-index: 10;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px 80px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .birthday-title {
+            font-family: 'Anton', sans-serif;
+            font-size: 6rem;
+            line-height: 0.9;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: -3px;
+        }
+
+        .birthday-title .letter {
+            display: inline-block;
+            animation: bounce 0.6s ease-in-out infinite;
+        }
+
+        .birthday-title .letter:nth-child(1) {
+            background: #333;
+            color: #fff;
+            padding: 10px 15px;
+            transform: rotate(-2deg);
+        }
+
+        .birthday-title .letter:nth-child(2) {
+            color: #8e44ad;
+            animation-delay: 0.1s;
+            transform: rotate(1deg);
+        }
+
+        .birthday-title .letter:nth-child(3) {
+            background: #ffd700;
+            color: #333;
+            padding: 10px 15px;
+            transform: rotate(-3deg);
+            animation-delay: 0.2s;
+        }
+
+        .birthday-title .letter:nth-child(4) {
+            background: #9b59b6;
+            color: #fff;
+            padding: 10px 15px;
+            transform: rotate(2deg);
+            animation-delay: 0.3s;
+        }
+
+        .birthday-title .letter:nth-child(5) {
+            color: #333;
+            animation-delay: 0.4s;
+        }
+
+        .party-text {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 5rem;
+            color: #333;
+            text-shadow:
+                -3px -3px 0 #fff,
+                3px -3px 0 #fff,
+                -3px 3px 0 #fff,
+                3px 3px 0 #fff,
+                0 0 20px rgba(0,0,0,0.3);
+            letter-spacing: 5px;
+        }
+
+        .name-section {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 4rem;
+            color: #9b59b6;
+            text-shadow: 
+                -4px -4px 0 #fff, 
+                4px -4px 0 #fff, 
+                -4px 4px 0 #fff, 
+                4px 4px 0 #fff,
+                -4px 0 0 #fff,
+                4px 0 0 #fff,
+                0 -4px 0 #fff,
+                0 4px 0 #fff;
+            letter-spacing: 8px;
+            margin: 15px 0;
+            font-weight: bold;
+        }
+
+        .our-girl-text {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 3.5rem;
+            color: #9b59b6;
+            text-shadow: 
+                -4px -4px 0 #fff, 
+                4px -4px 0 #fff, 
+                -4px 4px 0 #fff, 
+                4px 4px 0 #fff,
+                -4px 0 0 #fff,
+                4px 0 0 #fff,
+                0 -4px 0 #fff,
+                0 4px 0 #fff;
+            letter-spacing: 3px;
+            margin-top: 10px;
+            font-weight: bold;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0) rotate(var(--rotate, 0deg)); }
+            50% { transform: translateY(-15px) rotate(var(--rotate, 0deg)); }
+        }
+
+        .date-section {
+            text-align: center;
+            margin: 30px 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 30px;
+        }
+
+        .date-box {
+            background: #000;
+            color: #fff;
+            padding: 15px 25px;
+            font-family: 'Anton', sans-serif;
+            font-size: 3rem;
+            border-radius: 10px;
+            box-shadow: 5px 5px 0 rgba(0,0,0,0.3);
+        }
+
+        .party-hat {
+            font-size: 4rem;
+            animation: spin 3s linear infinite;
+        }
+
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .main-content {
+            position: relative;
+        }
+
+        .balloon-number {
+            text-align: center;
+            margin: 30px 0 10px;
+            position: relative;
+        }
+
+        .number-21 {
+            font-family: 'Impact', 'Arial Black', sans-serif;
+            font-size: 15rem;
+            color: #9b59b6;
+            text-shadow:
+                5px 5px 0 #fff,
+                10px 10px 0 rgba(0,0,0,0.2);
+            letter-spacing: -20px;
+            font-weight: 900;
+        }
+
+        .number-21::before {
+            content: 'Turning ';
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 4rem;
+            display: block;
+            color: #333;
+            text-shadow: 2px 2px 0 #fff;
+            letter-spacing: 5px;
+            margin-bottom: -20px;
+        }
+
+        /* KHU ẢNH: overlay toàn màn hình, nằm dưới chữ */
+        #photoContainer {
+            position: fixed;
+            inset: 0;
+            z-index: 3;
+            pointer-events: none;
+        }
+
+        .photo-frame {
+            width: 200px;
+            position: absolute;
+            z-index: 3;
+            pointer-events: none;
+        }
+
+        .polaroid {
+            background: #fff;
+            padding: 10px;
+            padding-bottom: 35px;
+            box-shadow: 5px 5px 15px rgba(0,0,0,0.3);
+            transition: transform 0.3s ease;
+        }
+
+        .polaroid:hover {
+            transform: scale(1.1);
+            z-index: 200;
+        }
+
+        .photo-upload-zone {
+            width: 100%;
+            aspect-ratio: 1;
+            background: #f0f0f0;
+            border: 3px dashed #9b59b6;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .stickers {
+            position: absolute;
+            font-size: 1.5rem;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .sticker-1 { top: -15px; left: -15px; }
+        .sticker-2 { top: -12px; right: -15px; animation-delay: 0.5s; }
+        .sticker-3 { bottom: 25px; left: -18px; animation-delay: 1s; }
+        .sticker-4 { bottom: 28px; right: -15px; animation-delay: 1.5s; }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-10px) rotate(5deg); }
+        }
+
+        .decorative-elements {
+            position: fixed;
+            pointer-events: none;
+            z-index: 5;
+        }
+
+        .megaphone {
+            top: 20%;
+            left: 5%;
+            font-size: 4rem;
+            animation: shake 2s ease-in-out infinite;
+        }
+
+        .camera {
+            bottom: 20%;
+            right: 5%;
+            font-size: 4rem;
+            animation: flash 3s ease-in-out infinite;
+        }
+
+        .money {
+            bottom: 10%;
+            right: 15%;
+            font-size: 3rem;
+            animation: float 4s ease-in-out infinite;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: rotate(0deg); }
+            25% { transform: rotate(-10deg); }
+            75% { transform: rotate(10deg); }
+        }
+
+        @keyframes flash {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        @keyframes floatUp {
+            to {
+                transform: translateY(-100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .birthday-title { font-size: 3rem; }
+            .party-text { font-size: 2.5rem; }
+            .name-section { font-size: 2rem; }
+            .number-21 { font-size: 6rem; }
+            .date-box { font-size: 2rem; }
+            .photo-frame { width: 150px; }
+        }
+
+        @keyframes tilt {
+    0%   { transform: rotate(0deg); }
+    25%  { transform: rotate(-6deg); }
+    50%  { transform: rotate(0deg); }
+    75%  { transform: rotate(6deg); }
+    100% { transform: rotate(0deg); }
+}
+
+.tilt {
+    display: inline-block;
+    transform-origin: center bottom; /* CHÂN CHỮ GIỮ NGUYÊN */
+    animation: tilt 2s ease-in-out infinite;
+}
+
+    </style>
+</head>
+<body>
+    <div class="sunburst"></div>
+    <div class="checkered"></div>
+
+    <div class="decorative-elements megaphone">📢</div>
+    <div class="decorative-elements camera">📷</div>
+    <div class="decorative-elements money">💵</div>
+
+    <div class="container">
+        <div class="header">
+            <div class="birthday-title">
+                <span class="letter" style="--rotate: -2deg;">H</span><span class="letter" style="--rotate: 1deg;">a</span><span class="letter" style="--rotate: -3deg;">P</span><span class="letter" style="--rotate: 2deg;">p</span><span class="letter">Y</span>
+                <span class="letter" style="--rotate: -1deg;">B</span><span class="letter" style="--rotate: 2deg;">i</span><span class="letter" style="--rotate: -2deg;">r</span><span class="letter" style="--rotate: 1deg;">t</span><span class="letter" style="--rotate: -1deg;">h</span><span class="letter" style="--rotate: 2deg;">d</span><span class="letter" style="--rotate: -2deg;">a</span><span class="letter">y</span>
+            </div>
+            <div class="our-girl-text">OUR GIRL!!</div>
+            <div class="name-section tilt">WIEN / NHỎ</div>
+
+            <div class="date-section">
+                <div class="date-box">01</div>
+                <div class="party-hat">🎉</div>
+                <div class="date-box">12</div>
+            </div>
+        </div>
+
+        <div class="main-content">
+            <div class="balloon-number">
+                <div class="number-21">21</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- overlay ảnh -->
+    <div id="photoContainer"></div>
+
+    <audio id="birthdayMusic" loop>
+        <source src="monqua/song.mp3" type="audio/mpeg">
+    </audio>
+
+   <script>
+    // ===== DANH SÁCH ẢNH =====
+    const preloadedImages = [
+    'monqua/add0e86da5db298570ca.jpg',
+    'monqua/d61bcf9e82280e765739.jpg',
+    'monqua/2.jpg',
+    'monqua/3.jpg',
+    'monqua/4.jpg',
+    'monqua/6.jpg',
+    'monqua/7.jpg',
+    'monqua/8.jpg',
+    'monqua/9.jpg'
+];
+
+    const containerPhotos = document.getElementById('photoContainer');
+    const music = document.getElementById('birthdayMusic');
+
+    let forbiddenAreas = [];
+    let placedRects = [];
+
+    function updateForbiddenAreas() {
+        forbiddenAreas = [];
+        document.querySelectorAll('.header, .balloon-number').forEach(el => {
+            const rect = el.getBoundingClientRect();
+            forbiddenAreas.push({
+                left: rect.left - 30,
+                top: rect.top - 30,
+                right: rect.right + 30,
+                bottom: rect.bottom + 30
+            });
+        });
+    }
+
+    function isOverlap(a, b, padding = 0) {
+        return !(a.right + padding < b.left || 
+                 a.left - padding > b.right || 
+                 a.bottom + padding < b.top || 
+                 a.top - padding > b.bottom);
+    }
+
+    function addRandomPhoto(imageSrc) {
+        const photoWidth = 200;
+        const photoHeight = 220;
+        const safePadding = 10;
+
+        const maxTry = 500;
+        let attempt = 0;
+
+        let finalRect = null;
+
+        const screenW = window.innerWidth;
+        const screenH = window.innerHeight;
+
+        while (attempt < maxTry) {
+            const left = Math.random() * (screenW - photoWidth - 40) + 20;
+            const top  = Math.random() * (screenH - photoHeight - 40) + 20;
+
+            const rect = {
+                left, 
+                top,
+                right: left + photoWidth,
+                bottom: top + photoHeight
+            };
+
+            let hitForbidden = false;
+            for (let f of forbiddenAreas) {
+                if (isOverlap(rect, f, 40)) {
+                    hitForbidden = true;
+                    break;
+                }
+            }
+            if (hitForbidden) {
+                attempt++;
+                continue;
+            }
+
+            let hitPhoto = false;
+            for (let r of placedRects) {
+                if (isOverlap(rect, r, safePadding)) {
+                    hitPhoto = true;
+                    break;
+                }
+            }
+            if (hitPhoto) {
+                attempt++;
+                continue;
+            }
+
+            finalRect = rect;
+            placedRects.push(rect);
+            break;
+        }
+
+        if (!finalRect) {
+            finalRect = {
+                left: Math.random() * (screenW - photoWidth - 40) + 20,
+                top: Math.random() * (screenH - photoHeight - 40) + 20
+            };
+        }
+
+        const rotation = (Math.random() - 0.5) * 30;
+
+        const frame = document.createElement('div');
+        frame.className = 'photo-frame';
+        frame.style.left = finalRect.left + 'px';
+        frame.style.top = finalRect.top + 'px';
+
+        const stickers = ['🎈','🎉','💖','✨','🌟','🎂','🎁','🍰','🧁','🎀'];
+        const pick = () => stickers[Math.floor(Math.random() * stickers.length)];
+
+        frame.innerHTML = `
+            <div class="polaroid" style="transform: rotate(${rotation}deg);">
+                <div class="photo-upload-zone">
+                    <img src="${imageSrc}" style="width:100%;height:100%;object-fit:cover;">
+                </div>
+            </div>
+            <div class="stickers sticker-1">${pick()}</div>
+            <div class="stickers sticker-2">${pick()}</div>
+            <div class="stickers sticker-3">${pick()}</div>
+            <div class="stickers sticker-4">${pick()}</div>
+        `;
+
+        containerPhotos.appendChild(frame);
+    }
+
+    function createFloatingElement() {
+        const elements = ['🎈', '🎉', '🎊', '✨', '💖'];
+        const element = document.createElement('div');
+        element.textContent = elements[Math.floor(Math.random() * elements.length)];
+        element.style.position = 'fixed';
+        element.style.left = Math.random() * 100 + '%';
+        element.style.bottom = '-50px';
+        element.style.fontSize = (Math.random() * 30 + 20) + 'px';
+        element.style.opacity = '0.7';
+        element.style.pointerEvents = 'none';
+        element.style.zIndex = '999';
+        element.style.animation = `floatUp ${Math.random() * 3 + 4}s ease-out forwards`;
+
+        document.body.appendChild(element);
+        setTimeout(() => element.remove(), 7000);
+    }
+
+    window.addEventListener('load', () => {
+        music.volume = 0.5;
+        music.play().catch(() => {
+            document.body.addEventListener('click', () => music.play(), { once: true });
+        });
+
+        updateForbiddenAreas();
+        preloadedImages.forEach(src => addRandomPhoto(src));
+        setInterval(createFloatingElement, 1000);
+    });
+</script>
+
+</body>
+</html>
